@@ -16,26 +16,18 @@ class AppointmentController extends Controller
     {
         if (auth()->user()->role === 0) {
             $appointments = DB::table('appointments')
-            ->select("appointments.*")
-            ->where('appointments.patient_id', '=', auth()->user()->id)
-            ->orderBy("appointments.id")
-            ->get();
-        }
-        elseif (auth()->user()->role === 1) {
+                ->select("appointments.*")
+                ->where('appointments.patient_id', '=', auth()->user()->id)
+                ->orderBy("appointments.id")
+                ->get();
+        } elseif (auth()->user()->role === 1) {
             $appointments = DB::table('appointments')
-            ->select("appointments.*")
-            ->where('appointments.counsellor_id', '=', auth()->user()->id)
-            ->orderBy("appointments.id")
-            ->get();
+                ->select("appointments.*")
+                ->where('appointments.counsellor_id', '=', auth()->user()->id)
+                ->orderBy("appointments.id")
+                ->get();
         }
         return view('appointment.index')->with('appointments', $appointments);
-    }
-
-    /**
-     * Appointments View by admin
-     */
-    public function indexByAdmin()
-    {
     }
 
     /**
@@ -44,40 +36,17 @@ class AppointmentController extends Controller
      */
     public function decision($id)
     {
-        //$status = $id;
-        //$appointment = new Appointment();
-        //$appointment->date = $appointment->date;
-        //$appointment->time = $appointment->time;
-        //$appointment->patient_id = $appointment->patient_id;
-        //$appointment->counsellor_id = $appointment->counsellor_id;
-        //$appointment->status = $status;
-        //$appointment->save();
-        //if ($status === 1) {
-        //    return view('appointment.index')->with('message', 'Accept Successful');
-        //}
-        //else {
-        //    return view('appointment.index')->with('message', 'Deny Successful');
-        //}
-            //$appointments = DB::table('appointments')
-            //->select("appointments.*")
-            //->where('appointments.counsellor_id', '=', auth()->user()->id)
-            //->orderBy("appointments.id")
-            //->get();
-            //foreach($appointments as $appointment) {
-            //    $status = $appointment->status;
-            //}
-            $appointments = Appointment::where('counsellor_id', auth()->user()->id)->get();
-            foreach($appointments as $appointment) {
-                $appointment->status = $id;
-                if ($appointment->save()) {
-                    if ($id === 1) {
-                        return view('appointment.decision')->with('message', 'Accept Successful');
-                    }
-                    else {
-                        return view('appointment.decision')->with('message', 'Deny Successful');
-                    }
+        $appointments = Appointment::where('counsellor_id', auth()->user()->id)->get();
+        foreach ($appointments as $appointment) {
+            $appointment->status = $id;
+            if ($appointment->save()) {
+                if ($id === 1) {
+                    return view('appointment.decision')->with('message', 'Accept Successful');
+                } else {
+                    return view('appointment.decision')->with('message', 'Deny Successful');
                 }
             }
+        }
     }
 
     /**

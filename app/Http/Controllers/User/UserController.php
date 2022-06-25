@@ -56,8 +56,7 @@ class UserController extends Controller
     public function profile($id)
     {
         $users = User::where('id', $id)->get();
-        //return view('counsellor.profile')->with('user', $user);
-        foreach($users as $user) {
+        foreach ($users as $user) {
             return view('counsellor.profile')->with('user', $user);
         }
     }

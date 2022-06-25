@@ -21,7 +21,7 @@
         @php $number = 1; @endphp
         @foreach($counsellors as $counsellor)
         <tr>
-        <td>{{ $number++; }}</td>
+          <td>{{ $number++; }}</td>
           <td><img src="{{ asset('images/profile.png') }}" alt="Profile Picture" style="width: 30px;"></td>
           <td>{{ $counsellor->name }}</td>
           <td>{{ $counsellor->email }}</td>
