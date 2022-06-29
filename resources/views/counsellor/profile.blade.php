@@ -3,7 +3,7 @@
 @section('content')
 <div class="row container mx-auto text-center">
   @if ($message = Session::get('message'))
-  <div class="alert-success my-3">{{ $message }}</div>
+  <div class="alert-success my-3 p-2">{{ $message }}</div>
   @endif
   <h2 class="h2 mb-3">{{ $user->name}}'s Profile (
     @if ($user->role === 0)

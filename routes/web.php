@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-Auth::routes();
-
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('login');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//login logout register
+Route::get('login', [App\Http\Controllers\Auth\AuthController::class, 'index'])->name('login');
+Route::post('post-login', [App\Http\Controllers\Auth\AuthController::class, 'postLogin'])->name('login.post'); 
+Route::get('registration', [App\Http\Controllers\Auth\AuthController::class, 'registration'])->name('register');
+Route::post('post-registration', [App\Http\Controllers\Auth\AuthController::class, 'postRegistration'])->name('register.post'); 
+Route::post('logout', [App\Http\Controllers\Auth\AuthController::class, 'logout'])->name('logout');
 
 //Route for UserController
 Route::get('/counsellors-list', [App\Http\Controllers\User\UserController::class, 'counsellor_list'])->name('counsellors-index');
